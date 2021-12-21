@@ -10,6 +10,7 @@
   "author": "Ashraf",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.1",
     "express": "^4.17.1",
     "firebase": "^9.6.1",
     "firebase-admin": "^10.0.1",

@@ -1,5 +1,7 @@
 
 var admin = require("firebase-admin");
+require('firebase/auth');
+require('firebase/database');
 
 var serviceAccount = require("./serviceAccountKey.json");
 
@@ -10,5 +12,7 @@ admin.initializeApp({
 
 
 module.exports = {
-  db: admin.database()
+  db: admin.database(),
+  auth: admin.auth(),
+  storage: admin.storage()
 }
