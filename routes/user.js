@@ -131,4 +131,22 @@ router.post('/login', (req, res)=>{
     }
 })
 
+
+//update profile
+router.post('/user/profile',(req, res)=>{
+    const { phoneNumber, dob, gender, username, address, user } = req.body
+  
+    db.ref('users').child(user).update({
+        phoneNumber,
+        dob,
+        gender,
+        username,
+        address
+    }).then(()=>{
+        return res.send('Saved successully')
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
 module.exports = router
