@@ -8,8 +8,25 @@ const router = express.Router()
 
 
 // get user data
-router.get('/user', res=>{
+router.get('/user/:email', (req,res)=>{
 
+    const result = {
+        data:null,
+        message:null
+    }
+
+    (async () => {
+        await auth.getUserByEmail(req.params.email).then(record=>{
+            console.log(record)
+            res.json(record)
+            result.data=record
+            result.message="saved successfully"
+        }).catch(err=>{
+            result.data=err,
+            result.message=err.message
+        })
+        res.json(result)
+    })()
 })
 
 
@@ -21,35 +38,63 @@ router.post('/signup', (req,res)=>{
     // const password = 'pass123
     const result = {
         data:null,
+        status: 200,
         message:null
     }
 
-    try{
 
-        const model = async ()=>{
+        const model = async () => {
             await auth.createUser({
                 email,
                 password,
                 name
             }).then(record=>{
-                console.log(record)
-                res.json(record)
+                // console.log(record)
                 result.data=record
                 result.message="saved successfully"
+                saveUser(record.uid, res, result)
             }).catch(err=>{
                 result.data=err,
+                result.status=500
                 result.message=err.message
             })
             res.json(result)
         }
         model()
         // res.send('saved')
-    }catch(err){
-        res.send('error occured')
-        console.log(err)
-    }
+   
 
 })
+
+const saveUser = (uId, res, result) => {
+    console.log(uId)
+    db.ref('users').child(uId).set({
+        wallet: {
+            balance: 0.0,
+            transactions: []
+        },
+        referals: [],
+        savings:[],
+        investmants: [],
+        phoneNumber: '',
+        username: '',
+        gender: '',
+        dob: '',
+        address: '',
+        bankDetails: {
+            bankName: '',
+            bankUserName: '',
+            accountNumber: '',
+            bvn: '',
+        }
+    }).then(e=>{
+        result.message='success'
+    }).catch(err=>{
+        result.message='Failed'
+        result.status=500
+    })
+    res.json(result)
+}
 
 
 
