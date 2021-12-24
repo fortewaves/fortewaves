@@ -65,4 +65,21 @@ router.post('/wallet/decrease', (req, res)=>{
 })
 
 
+// get bank details
+router.get('/bank/:user', (req, res) =>{
+
+    const user = req.params.user
+    db.ref('users').child(user).child('bankDetails').once('value').then(snapshot=>{
+        const bankDetails = snapshot.val()
+
+        return res.json(bankDetails)
+    }).catch(err=>{
+        return res.status(500).json({
+            err,
+            message:'failed to get bank details'
+        })
+    })
+})
+
+
 module.exports = router
