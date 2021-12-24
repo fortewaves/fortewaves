@@ -15,6 +15,7 @@
     "firebase": "^9.6.1",
     "firebase-admin": "^10.0.1",
     "moment": "^2.29.1",
+    "node-fetch": "2",
     "nodemailer": "^6.7.2",
     "nodemailer-juice": "^1.0.1"
   },

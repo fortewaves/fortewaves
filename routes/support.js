@@ -11,7 +11,8 @@ router.post('/room/create', (req, res)=>{
     db.ref('rooms').child(roomId).set({
         user,
         title,
-        createdAt: moment().toString()
+        createdAt: moment().toString(),
+        status: 'open'
     }).then(()=>{
         res.json({
             roomId
