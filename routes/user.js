@@ -149,4 +149,25 @@ router.post('/user/profile',(req, res)=>{
     })
 })
 
+// get profile details
+router.get('/user/profile/:user',(req,res)=>{
+    const user = req.params.user
+  
+    db.ref('users').child(user).once('value').then((snapshot)=>{
+        const profile = {
+            phoneNumber: snapshot.val().phoneNumber,
+            dob: snapshot.val().dob,
+            gender: snapshot.val().gender,
+            username: snapshot.val().username,
+            address: snapshot.val().address,
+        }
+        return res.json(profile)
+    }).catch((err)=>{
+        res.status(500).json({
+            err,
+            message:'failed to get user profile'
+        })
+    })
+})
+
 module.exports = router
