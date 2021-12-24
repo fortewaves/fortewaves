@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const fetch = require('node-fetch')
+const { db } = require('../firebase')
 
 
 // verify an account number
@@ -78,6 +79,28 @@ router.post('/init_transfer', async (req, res)=>{
     const json = await fetch_res.json()
     res.json(json)
 
+})
+
+
+// save transaction 
+router.post('/transactions/save', (req, res)=>{
+
+    const { user, data, type, authorizedBy } = req.body
+
+    db.ref('transactions').push().set({
+        user,
+        type,
+        authorizedBy,
+        createdAt: moment().toString(),
+        data
+    }).then(()=>{
+        return res.send('Transaction saved')
+    }).catch(err=>{
+        res.status(500).json({
+            err,
+            message: 'failed to save transaction'
+        })
+    })
 })
 
 
