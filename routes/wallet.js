@@ -81,7 +81,7 @@ router.get('/bank/:user', (req, res) =>{
 
         return res.json(bankDetails)
     }).catch(err=>{
-        return res.status(500).json({
+        return res.status(400).json({
             err,
             message:'failed to get bank details'
         })
