@@ -22,37 +22,25 @@ router.post('/signup', (req,res)=>{
  const {email, password, name} = req.body
     // const email = 'ashsal.dev@gmail.com'
     // const password = 'pass123
-    const result = {
-        data:null,
-        status: 200,
-        message:null
-    }
-
-
-        const model = async () => {
+   
             await auth.createUser({
                 email,
                 password,
                 name
             }).then(record=>{
                 // console.log(record)
-                result.data=record
-                result.message="User registered successfully"
-                saveUser(record.uid, res, result)
+                saveUser(record.uid, res, record)
+                return res.json(record);
             }).catch(err=>{
-                result.data=err,
-                result.status=500
-                result.message=err.message
+                return res.status(500).json(err)
             })
-            res.json(result)
-        }
-        model()
+            
         // res.send('saved')
    
 
 })
 
-const saveUser = (uId, res, result) => {
+const saveUser = (uId, res, record) => {
     console.log(uId)
     db.ref('users').child(uId).set({
         wallet: {
@@ -74,12 +62,11 @@ const saveUser = (uId, res, result) => {
             bvn: '',
         }
     }).then(e=>{
-        result.message='success'
+        return res.json(record)
     }).catch(err=>{
-        result.message='Failed'
-        result.status=500
+        return res.status(500).json(err)
     })
-    res.json(result)
+    // res.json(result)
 }
 
 

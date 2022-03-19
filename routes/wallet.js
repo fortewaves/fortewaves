@@ -27,7 +27,7 @@ router.get('/wallet/:user', (req,res)=>{
     console.log(req.params)
     db.ref('users').child(uId).once('value').then((snapshot)=>{
         console.log(snapshot.val())
-        res.json(snapshot.val().wallet)
+        return res.json(snapshot.val().wallet)
     })
 
     
