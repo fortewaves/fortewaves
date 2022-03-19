@@ -8,12 +8,11 @@ const router = express.Router()
 
 
 // get user data
-router.get('/user/:email', (req, res) => {
-    
-    auth.getUserByEmail(req.params.email)
+router.get('/user/:uid', (req, res) => {
+    auth.getUser(req.params.uid)
         .then(e => res.json(e))
         .catch(err => res.status(500).json(err))
-       
+    
 })
 
 
