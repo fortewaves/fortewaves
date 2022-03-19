@@ -27,7 +27,14 @@ router.get('/wallet/:user', (req,res)=>{
     console.log(req.params)
     db.ref('users').child(uId).once('value').then((snapshot)=>{
         console.log(snapshot.val())
-        return res.json(snapshot.val().wallet)
+        if (snapshot.val() !== null) {
+            return res.json(snapshot.val().wallet)
+        } else {
+            return res.status(400).json({
+                message: 'No wallet data found'
+            })
+        }
+        
     })
 
     
