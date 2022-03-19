@@ -31,7 +31,7 @@ router.post('/signup', (req,res)=>{
         saveUser(record.uid, res, record)
         return res.json(record);
     }).catch(err=>{
-        return res.status(500).json(err)
+        return res.status(400).json(err)
     })
             
         // res.send('saved')
