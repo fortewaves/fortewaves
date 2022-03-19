@@ -9,6 +9,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Pass to next layer of middleware
+    next();
+});
 
 app.get('/yes', (req, res)=>{
     console.log('accessed')
