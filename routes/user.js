@@ -8,25 +8,12 @@ const router = express.Router()
 
 
 // get user data
-router.get('/user/:email', (req,res)=>{
-
-    const result = {
-        data:null,
-        message:null
-    }
-
-    (async () => {
-        await auth.getUserByEmail(req.params.email).then(record=>{
-            console.log(record)
-            res.json(record)
-            result.data=record
-            result.message="saved successfully"
-        }).catch(err=>{
-            result.data=err,
-            result.message=err.message
-        })
-        res.json(result)
-    })()
+router.get('/user/:email', (req, res) => {
+    
+    auth.getUserByEmail(req.params.email)
+        .then(e => res.json(e))
+        .catch(err => res.status(500).json(err))
+       
 })
 
 
@@ -51,7 +38,7 @@ router.post('/signup', (req,res)=>{
             }).then(record=>{
                 // console.log(record)
                 result.data=record
-                result.message="saved successfully"
+                result.message="User registered successfully"
                 saveUser(record.uid, res, result)
             }).catch(err=>{
                 result.data=err,

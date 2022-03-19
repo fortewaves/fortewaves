@@ -23,15 +23,12 @@ router.get('/investments/:user', (req,res)=>{
 })
 
 // get all investments
-router.get('/investments', res =>{
+router.get('/investments', (req, res) =>{
 
     db.ref('investments').once('value').then(snapshot=>{
         return res.json(snapshot.val())
     }).catch(err=>{
-        return res.status(500).json({
-            err,
-            message: 'failed to get investments'
-        })
+        console.log(err)
     })
     
 })
@@ -39,7 +36,7 @@ router.get('/investments', res =>{
 
 // add new investment
 router.post('/investment/add', (req, res) =>{
-    const { user, sponsor, amount, name, reference, percentage } = req.params.user
+    const { user, sponsor, amount, name, reference, percentage } = req.body
 
     db.ref('investments').push().set({
         user,
