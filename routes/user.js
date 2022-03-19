@@ -20,20 +20,19 @@ router.get('/user/:uid', (req, res) => {
 router.post('/signup', (req,res)=>{
     console.log(req)
  const {email, password, name} = req.body
-    // const email = 'ashsal.dev@gmail.com'
-    // const password = 'pass123
+  
    
-            await auth.createUser({
-                email,
-                password,
-                name
-            }).then(record=>{
-                // console.log(record)
-                saveUser(record.uid, res, record)
-                return res.json(record);
-            }).catch(err=>{
-                return res.status(500).json(err)
-            })
+    auth.createUser({
+        email,
+        password,
+        name
+    }).then(record=>{
+        // console.log(record)
+        saveUser(record.uid, res, record)
+        return res.json(record);
+    }).catch(err=>{
+        return res.status(500).json(err)
+    })
             
         // res.send('saved')
    
