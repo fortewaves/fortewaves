@@ -30,7 +30,8 @@ router.get('/wallet/:user', (req,res)=>{
         if (snapshot.val() !== null) {
             return res.json(snapshot.val().wallet)
         } else {
-            return res.status(300).json({
+            return res.json({
+                status: false,
                 message: 'No wallet data found'
             })
         }
