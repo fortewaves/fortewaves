@@ -19,4 +19,4 @@ app.get('/yes', (req, res)=>{
 
 app.use('/', router)
 
-app.listen('3001')
+app.listen(process.env.PORT || '3001')
