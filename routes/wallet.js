@@ -30,7 +30,7 @@ router.get('/wallet/:user', (req,res)=>{
         if (snapshot.val() !== null) {
             return res.json(snapshot.val().wallet)
         } else {
-            return res.status(400).json({
+            return res.status(300).json({
                 message: 'No wallet data found'
             })
         }
@@ -60,7 +60,7 @@ router.post('/wallet/decrease', (req, res)=>{
     getWalletBalance(user).then(e=>{
         if(e<amount){
             
-            return res.status(400).send('insuficient balance')
+            return res.status(300).send('insuficient balance')
         }else {
             const newBalance = e-amount
 
@@ -81,7 +81,7 @@ router.get('/bank/:user', (req, res) =>{
 
         return res.json(bankDetails)
     }).catch(err=>{
-        return res.status(400).json({
+        return res.status(300).json({
             err,
             message:'failed to get bank details'
         })
