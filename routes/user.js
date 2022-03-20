@@ -29,7 +29,7 @@ router.post('/signup', (req,res)=>{
     }).then(record=>{
         // console.log(record)
         saveUser(record.uid, res, record)
-        return res.json(record);
+        // return res.json(record);
     }).catch(err=>{
         return res.json(err)
     })
