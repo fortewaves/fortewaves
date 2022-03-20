@@ -27,7 +27,7 @@ router.get('/wallet/:user', (req,res)=>{
     console.log(req.params)
     db.ref('users').child(uId).once('value').then((snapshot)=>{
         console.log(snapshot.val())
-        if (snapshot.val() !== null) {
+        if (snapshot.val() !== undefined) {
             return res.json(snapshot.val().wallet)
         } else {
             return res.json({
