@@ -21,7 +21,6 @@ router.get('/user/:uid', (req, res) => {
 router.post('/signup', (req,res)=>{
     // console.log(req)
  const {email, name} = req.body
-        console.log(record)
     db.ref("users")
       .push()
         .set({
