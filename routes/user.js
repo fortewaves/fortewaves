@@ -22,7 +22,7 @@ router.post('/signup', (req,res)=>{
  const {email, name} = req.body
         // console.log(record)
     db.ref("users")
-      .child(uId)
+      .child(email)
         .set({
                 email,
                 name,
