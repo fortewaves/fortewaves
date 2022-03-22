@@ -65,7 +65,7 @@ router.post('/signup', (req,res)=>{
 })
 
 const saveUser = (uId, res, record) => {
-    console.log(uId)
+    // console.log(uId)
     
     // res.json(result)
 }
