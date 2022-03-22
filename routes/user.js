@@ -24,9 +24,9 @@ router.post('/signup', (req,res)=>{
     db.ref("users")
       .push()
         .set({
-                email,
-                name,
-                wallet: {
+            email,
+            name,
+            wallet: {
                 balance: 0.0,
                 transactions: [],
             },
@@ -53,7 +53,7 @@ router.post('/signup', (req,res)=>{
         return res.json({status: true, message: 'User saved successfully'});
       })
       .catch((err) => {
-        return res.status(500).json(err);
+        return res.json(err);
       });
         // return res.json(record);
    
