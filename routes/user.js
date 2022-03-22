@@ -1,5 +1,6 @@
 const express = require('express')
 const { db, auth } = require('../firebase')
+const moment = require('moment');
 
 const router = express.Router()
 
@@ -22,11 +23,11 @@ router.post('/signup', (req,res)=>{
  const {email, name} = req.body
         // console.log(record)
     db.ref("users")
-      .push()
+      .child(email)
         .set({
-            email,
-            name,
-            wallet: {
+                email,
+                name,
+                wallet: {
                 balance: 0.0,
                 transactions: [],
             },
@@ -47,13 +48,13 @@ router.post('/signup', (req,res)=>{
                 accountNumber: "",
                 bvn: "",
             },
-            createdAt: moment.toString()
+            createdAt: moment().toString()
         })
       .then((e) => {
         return res.json({status: true, message: 'User saved successfully'});
       })
       .catch((err) => {
-        return res.json(err);
+        return res.status(500).json(err);
       });
         // return res.json(record);
    
