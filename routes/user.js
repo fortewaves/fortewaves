@@ -110,7 +110,7 @@ router.post('/login', (req, res)=>{
 router.post('/user/profile',(req, res)=>{
     const { phoneNumber, dob, gender, username, address, user } = req.body
   
-    db.ref('users').child(user).update({
+    db.ref('users').child(user).child('profile').update({
         phoneNumber,
         dob,
         gender,
