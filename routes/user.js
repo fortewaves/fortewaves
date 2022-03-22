@@ -19,7 +19,7 @@ router.get('/user/:uid', (req, res) => {
 
 // register user
 router.post('/signup', (req,res)=>{
-    console.log(req)
+    // console.log(req)
  const {email, name} = req.body
         console.log(record)
     db.ref("users")
