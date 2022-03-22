@@ -17,9 +17,6 @@ router.get('/investments/:user', (req,res)=>{
         })
     })
     
-    res.json({
-        ghhg:'jghg'
-    })
 })
 
 // get all investments

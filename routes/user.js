@@ -19,21 +19,46 @@ router.get('/user/:uid', (req, res) => {
 // register user
 router.post('/signup', (req,res)=>{
     console.log(req)
- const {email, password, name} = req.body
-  
-   
-    auth.createUser({
-        email,
-        password,
-        name
-    }).then(record=>{
+ const {email, name} = req.body
         // console.log(record)
-        saveUser(record.uid, res, record)
+    db.ref("users")
+      .child(uId)
+        .set({
+                email,
+                name,
+                wallet: {
+                balance: 0.0,
+                transactions: [],
+            },
+            profile: {
+                name,
+                gender: "",
+                dob: "",
+                address: "",
+                phoneNumber: "",
+            },
+            referals: [],
+            savings: [],
+            investmants: [],
+            username: "",
+            bankDetails: {
+                bankName: "",
+                bankUserName: "",
+                accountNumber: "",
+                bvn: "",
+            },
+            createdAt: moment.toString()
+        })
+      .then((e) => {
+        return res.json({status: true, message: 'User saved successfully'});
+      })
+      .catch((err) => {
+        return res.status(500).json(err);
+      });
         // return res.json(record);
-    }).catch(err=>{
-        return res.json(err)
-    })
+   
             
+    
         // res.send('saved')
    
 
@@ -41,30 +66,7 @@ router.post('/signup', (req,res)=>{
 
 const saveUser = (uId, res, record) => {
     console.log(uId)
-    db.ref('users').child(uId).set({
-        wallet: {
-            balance: 0.0,
-            transactions: []
-        },
-        referals: [],
-        savings:[],
-        investmants: [],
-        phoneNumber: '',
-        username: '',
-        gender: '',
-        dob: '',
-        address: '',
-        bankDetails: {
-            bankName: '',
-            bankUserName: '',
-            accountNumber: '',
-            bvn: '',
-        }
-    }).then(e=>{
-        return res.json(record)
-    }).catch(err=>{
-        return res.status(500).json(err)
-    })
+    
     // res.json(result)
 }
 
