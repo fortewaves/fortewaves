@@ -14,7 +14,7 @@ router.get('/user/:token', (req, res) => {
         // console.log(e)
         const email = e.email
         db.ref('users').orderByChild('email').equalTo(email).once('value', (e) => {
-            return res.json(e)
+            return res.json(e[0])
         }).catch(err => {
             res.json(err)
         })
