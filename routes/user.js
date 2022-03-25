@@ -9,10 +9,16 @@ const router = express.Router()
 
 
 // get user data
-router.get('/user/:uid', (req, res) => {
-    auth.getUser(req.params.uid)
-        .then(e => res.json(e))
-        .catch(err => res.status(500).json(err))
+router.get('/user/:token', (req, res) => {
+    auth.verifyIdToken(req.params.token).then(e => {
+        // console.log(e)
+        const email = e.email
+        db.ref('users').orderByChild('email').equalTo(email).once('value', (e) => {
+            return res.json(e)
+        }).catch(err => {
+            res.json(err)
+        })
+    })
     
 })
 
