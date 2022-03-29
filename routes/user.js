@@ -16,7 +16,8 @@ router.get("/user/:token", (req, res) => {
         .orderByChild("email")
         .equalTo(email)
         .once("value", (e) => {
-          return res.json(e[0]);
+
+          return res.json(Object.values(e.val())[0]);
         })
         .catch((err) => {
           return res.json(err);
@@ -26,6 +27,7 @@ router.get("/user/:token", (req, res) => {
       res.json({
         code: 401,
         message: "Unauthorized: Token has expired or is invalid",
+        err
       })
     );
 });
