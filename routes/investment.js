@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
-
 const { db } = require("../firebase");
+
+const { isTokenValid, getKey } = require("../utils/utils");
+
 
 // get investments by user
 router.get("/investments/:token", (req, res) => {
