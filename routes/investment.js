@@ -5,7 +5,6 @@ const { db } = require("../firebase");
 
 const { isTokenValid, getKey } = require("../utils/utils");
 
-
 // get investments by user
 router.get("/investments/:token", (req, res) => {
   const token = req.params.token;
@@ -53,8 +52,14 @@ router.get("/investments", (req, res) => {
 
 // add new investment
 router.post("/investment/add", (req, res) => {
-  const { token, sponsor, amount, name, paymentRreference, percentage } =
-    req.body;
+  const {
+    token,
+    sponsor,
+    amount,
+    name,
+    paymentReference,
+    percentage,
+  } = req.body;
 
   isTokenValid(token)
     .then((e) => {
@@ -68,7 +73,7 @@ router.post("/investment/add", (req, res) => {
               amount,
               name,
               percentage,
-              paymentRreference,
+              paymentReference,
               createdAt: moment().toString(),
             })
             .then(() => {
