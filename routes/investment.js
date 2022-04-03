@@ -33,7 +33,7 @@ router.get("/investments/:token", (req, res) => {
     .catch((err) =>
       res.json({
         code: 401,
-        message: "Unauthorized: Token has expired or is invalid",
+        message: "Unauthorized: Token has expired or is invalid.",
       })
     );
 });
