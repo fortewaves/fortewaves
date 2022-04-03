@@ -22,9 +22,9 @@ router.get("/investments/:token", (req, res) => {
               return res.json(investments);
             })
             .catch((err) => {
-              return res.status(500).json({
+              return res.json({
                 err,
-                message: "failed to get investments",
+                message: "no investments was found",
               });
             });
         });
